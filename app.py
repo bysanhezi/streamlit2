@@ -2,7 +2,7 @@ from itertools import groupby
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
+
 
 st.title("RESUMEN DE SIMULACIONES - MÉTRICAS AVANZADAS")
 
@@ -61,12 +61,6 @@ for i in range(num_pruebas):
     max_pos = max((sum(1 for _ in g) for k, g in groupby(df['Resultado']) if k == 1), default=0)
     max_neg = max((sum(1 for _ in g) for k, g in groupby(df['Resultado']) if k == -1), default=0)
 
-    # Calcular R²
-    x = np.arange(len(df)).reshape(-1, 1)  # Índices como variable independiente
-    y = df['Net Profit Cum'].values.reshape(-1, 1)
-    model = LinearRegression().fit(x, y)
-    r2 = model.score(x, y)
-
     # Evaluar pruebas fondeo
     suma = 0
     prueba_pasada = False
@@ -89,7 +83,6 @@ for i in range(num_pruebas):
     estadisticas_resumen["Pérdidas Totales"].append(df[df['Net Profit'] < 0]['Net Profit'].sum())
     estadisticas_resumen["Max Positivos Consecutivos"].append(max_pos)
     estadisticas_resumen["Max Negativos Consecutivos"].append(max_neg)
-    estadisticas_resumen["R2"].append(r2)
 
     # Almacenar resultados individuales
     resultados_pruebas.append(df)
@@ -103,7 +96,7 @@ perdidas_totales = sum(estadisticas_resumen["Pérdidas Totales"])
 profit_factor = ganancias_totales / abs(perdidas_totales) if perdidas_totales != 0 else float('inf')
 max_pos_consec = max(estadisticas_resumen["Max Positivos Consecutivos"])
 max_neg_consec = max(estadisticas_resumen["Max Negativos Consecutivos"])
-r2_promedio = np.mean(estadisticas_resumen["R2"])
+
 
 # Visualización del resumen
 st.header("Resumen de Simulaciones")
@@ -116,7 +109,7 @@ st.write(f"**Ganancias Totales:** ${ganancias_totales:.2f}")
 st.write(f"**Pérdidas Totales:** ${perdidas_totales:.2f}")
 st.write(f"**Máximo Trades Positivos Consecutivos:** {max_pos_consec}")
 st.write(f"**Máximo Trades Negativos Consecutivos:** {max_neg_consec}")
-st.write(f"**R² Promedio de las Simulaciones:** {r2_promedio:.4f}")
+
 
 # Mostrar resultados individuales
 st.header("Resultados Individuales")
