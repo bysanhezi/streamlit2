@@ -1,7 +1,6 @@
 from itertools import groupby
 import streamlit as st
 import pandas as pd
-import numpy as np
 
 
 st.title("RESUMEN DE SIMULACIONES - MÉTRICAS AVANZADAS")
