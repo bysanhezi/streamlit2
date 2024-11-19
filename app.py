@@ -7,10 +7,10 @@ from sklearn.linear_model import LinearRegression
 st.title("RESUMEN DE SIMULACIONES - MÉTRICAS AVANZADAS")
 
 # Datos iniciales
-relacion = st.sidebar.number_input("Relación R/B", value=1.0)
-probabilidad = st.sidebar.number_input("Probabilidad (%)", value=55.0)
+relacion = st.sidebar.number_input("Relación R/B", value=3)
+probabilidad = st.sidebar.number_input("Probabilidad (%)", value=38)
 riesgo = st.sidebar.number_input("Riesgo por operación", value=200.0)
-canttrades = st.sidebar.number_input("Número de Trades", min_value=100, value=1000)
+canttrades = st.sidebar.number_input("Número de Trades", min_value=10, value=10)
 targetpruebafondeo = st.sidebar.number_input("Target Prueba Fondeo", value=1750.0)
 perdidamaxima = st.sidebar.number_input("Pérdida Máxima", value=-1500.0)
 num_pruebas = st.sidebar.number_input("Número de Pruebas", min_value=1, value=5)
